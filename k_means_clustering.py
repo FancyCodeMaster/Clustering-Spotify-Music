@@ -74,8 +74,17 @@ plt.show()
 # So we have another method called Silhouette Score
 # It is a better alternative for the elbow method to find the optimal number of clusters
 
-kmeans = KMeans(n_clusters=7, init="k-means++", n_init=10, max_iter=300, random_state=0)
-y_kmeans = kmeans.fit(X)
+from sklearn.metrics import silhouette_score
+
+silhouette_scores = []
+
+for i in range(2,X.shape[1]+1):
+    kmeans = KMeans(n_clusters=i)
+    kmeans.fit(X)
+    y_kmeans = kmeans.predict(X)
+    print("The Silhoutte score for K=" , i , "is" , silhouette_score(X , y_kmeans))
+    silhouette_scores.append(silhouette_score(X , y_kmeans))
+
 
 
 
